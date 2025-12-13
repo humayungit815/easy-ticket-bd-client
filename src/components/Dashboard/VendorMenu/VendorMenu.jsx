@@ -82,6 +82,7 @@ const VendorMenu = () => {
 						</button>
 					</li>
 				</Link>
+				<Link to='requested-bookings'>
 				<li>
 					<button
 						className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
@@ -106,6 +107,7 @@ const VendorMenu = () => {
 						<span className="is-drawer-close:hidden">Requested Bookings </span>
 					</button>
 				</li>
+				</Link>
 				<li>
 					<button
 						className="is-drawer-close:tooltip is-drawer-close:tooltip-right"

@@ -30,7 +30,7 @@ const UserMenu = () => {
 					</button>
 				</li>
 			</Link>
-			<Link to="add-tickets">
+			<Link to="my-booked-tickets">
 				<li>
 					<button
 						className="is-drawer-close:tooltip is-drawer-close:tooltip-right"

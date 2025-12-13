@@ -9,6 +9,10 @@ import MyAddedTickets from "../components/Dashboard/Vendor/MyAddedTickets";
 import Profile from "../components/Dashboard/Common/Profile";
 import ManageTickets from "../components/Dashboard/AdminMenu/ManageTickets";
 import AllTickets from "../Pages/AllTickets/AllTickets";
+import TicketDetails from "../Pages/TicketDetails/TicketDetails";
+import MyBookedTickets from "../components/Dashboard/UserMenu/MyBookedTickets";
+import RequestedBookings from "../components/Dashboard/VendorMenu/RequestedBookings";
+import PaymentSuccess from "../Pages/payment/PaymentSuccess";
 
 const router = createBrowserRouter([
 	{
@@ -31,6 +35,10 @@ const router = createBrowserRouter([
 				path: "all-tickets",
 				Component: AllTickets,
 			},
+			{
+				path: "tickets/:id",
+				Component: TicketDetails,
+			},
 		],
 	},
 	{
@@ -52,6 +60,18 @@ const router = createBrowserRouter([
 			{
 				path: "manage-tickets",
 				Component: ManageTickets,
+			},
+			{
+				path: "my-booked-tickets",
+				Component: MyBookedTickets,
+			},
+			{
+				path: "requested-bookings",
+				Component: RequestedBookings,
+			},
+			{
+				path: "payment-success",
+				Component: PaymentSuccess,
 			},
 		],
 	},
