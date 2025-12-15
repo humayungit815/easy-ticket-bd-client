@@ -63,6 +63,8 @@ const TicketDetails = () => {
 		}
 
 		const bookingData = {
+			ticketId: ticket._id,
+			vendorEmail: ticket.vendorEmail,
 			ticketTitle: ticket.TicketTitle,
 			userName: user.displayName,
 			userEmail: user.email,

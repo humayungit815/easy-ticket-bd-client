@@ -52,6 +52,7 @@ const Register = () => {
 				name: user.displayName,
 				email: user.email,
 				photo: user.photoURL,
+				isFraud: false,
 			});
 
 			toast.success("Registration Successfully!");

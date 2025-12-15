@@ -1,8 +1,10 @@
 import axios from "axios";
 import React from "react";
 import {useForm} from "react-hook-form";
+import useAuth from "../../../hooks/useAuth";
 
 const AddTickets = () => {
+	const {user} = useAuth();
 	const {
 		register,
 		handleSubmit,
@@ -37,6 +39,8 @@ const AddTickets = () => {
 			image: displayImage,
 			vendorName: data.vendorName,
 			vendorEmail: data.vendorEmail,
+			isHidden: false,
+			isAdvertised: false,
 
 			// Add verification status here
 			verificationStatus: "pending",
@@ -148,15 +152,15 @@ const AddTickets = () => {
 						<input
 							{...register("vendorName")}
 							type="text"
-							defaultValue="Vendor Name"
-							// readOnly
+							defaultValue={user?.displayName || ""}
+							readOnly
 							className="input input-bordered w-full"
 						/>
 						<input
 							{...register("vendorEmail")}
 							type="email"
-							defaultValue="vendor@gmail.com"
-							// readOnly
+							defaultValue={user?.email || ""}
+							readOnly
 							className="input input-bordered w-full"
 						/>
 					</div>

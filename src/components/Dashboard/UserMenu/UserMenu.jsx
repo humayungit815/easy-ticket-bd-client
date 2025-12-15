@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router";
+import {Link} from "react-router";
 
 const UserMenu = () => {
 	return (
@@ -56,7 +56,7 @@ const UserMenu = () => {
 					</button>
 				</li>
 			</Link>
-			<Link to="my-added-tickets">
+			<Link to="transaction-history">
 				<li>
 					<button
 						className="is-drawer-close:tooltip is-drawer-close:tooltip-right"

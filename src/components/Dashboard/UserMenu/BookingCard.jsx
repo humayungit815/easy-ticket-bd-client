@@ -31,15 +31,16 @@ const BookingCard = ({booking}) => {
 			const paymentInfo = {
 				bookingId: booking._id,
 				ticketTitle: booking.ticketTitle,
-				unitPrice: Number(booking.unitPrice), // Ensure integer
-				totalPrice: Number(booking.totalPrice), // Ensure integer
-				bookingQty: Number(booking.bookingQty), // Ensure integer
+				unitPrice: Number(booking.unitPrice),
+				totalPrice: Number(booking.totalPrice),
+				bookingQty: Number(booking.bookingQty),
 				image: booking.image,
 				customer: {
 					name: user.displayName,
 					email: user.email,
 					image: user.photoURL,
 				},
+				vendorEmail: booking.vendorEmail,
 			};
 
 			// Send request to backend

@@ -1,6 +1,7 @@
 import React from "react";
 import bg from "../../assets/bg.jpg";
-import Advertise from "./Advertise/Advertise";
+import AddTickets from "../Dashboard/Vendor/AddTickets";
+import AdvertiseTicket from "./AdvertiseTicket/AdvertiseTicket";
 const Home = () => {
 	return (
 		<div>
@@ -21,6 +22,9 @@ const Home = () => {
 						No 1 Online Ticketing Platform
 					</h3>
 				</div>
+			</div>
+			<div className="mt-20">
+				<AdvertiseTicket></AdvertiseTicket>
 			</div>
 		</div>
 	);

@@ -8,7 +8,7 @@ const ManageTickets = () => {
 
 	useEffect(() => {
 		axiosSecure
-			.get("/tickets")
+			.get("/admin/tickets")
 			.then(res => {
 				setTickets(res.data);
 			})
@@ -16,13 +16,13 @@ const ManageTickets = () => {
 				console.error("Error loading tickets:", error);
 			});
 	}, [axiosSecure]);
+	console.log(tickets);
 
 	const handleApproved = async id => {
 		try {
 			const res = await axiosSecure.patch(`/approve-tickets/${id}`);
 			if (res.data.modifiedCount > 0) {
 				toast.success("Ticket Approved!");
-
 
 				setTickets(prev =>
 					prev.map(ticket =>

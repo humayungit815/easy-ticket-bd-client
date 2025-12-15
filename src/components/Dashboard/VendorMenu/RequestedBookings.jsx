@@ -13,13 +13,13 @@ const RequestedBookings = () => {
 		if (!user?.email) return;
 
 		axiosSecure
-			.get(`/bookings?email=${user.email}`, {
+			.get(`/vendor/bookings?email=${user.email}`, {
 				headers: {"Cache-Control": "no-cache"},
 			})
 			.then(res => setRequests(res.data))
 			.catch(err => console.error("Error fetching bookings:", err));
 	}, [axiosSecure, user?.email]);
-
+	console.log(requests);
 	// Accept a booking request
 	const handleAccepted = async id => {
 		try {

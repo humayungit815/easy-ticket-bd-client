@@ -13,6 +13,10 @@ import TicketDetails from "../Pages/TicketDetails/TicketDetails";
 import MyBookedTickets from "../components/Dashboard/UserMenu/MyBookedTickets";
 import RequestedBookings from "../components/Dashboard/VendorMenu/RequestedBookings";
 import PaymentSuccess from "../Pages/payment/PaymentSuccess";
+import TransactionHistory from "../components/Dashboard/UserMenu/TransactionHistory";
+import VendorRevenue from "../components/Dashboard/VendorMenu/VendorRevenue";
+import AdminManageUsers from "../components/Dashboard/AdminMenu/AdminManageUsers";
+import AdminAdvertise from "../components/Dashboard/AdminMenu/AdminAdvertise";
 
 const router = createBrowserRouter([
 	{
@@ -72,6 +76,22 @@ const router = createBrowserRouter([
 			{
 				path: "payment-success",
 				Component: PaymentSuccess,
+			},
+			{
+				path: "transaction-history",
+				Component: TransactionHistory,
+			},
+			{
+				path: "vendor-revenue",
+				Component: VendorRevenue,
+			},
+			{
+				path: "manage-users",
+				Component: AdminManageUsers,
+			},
+			{
+				path: "admin-advertise",
+				Component: AdminAdvertise,
 			},
 		],
 	},

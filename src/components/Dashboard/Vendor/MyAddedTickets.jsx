@@ -1,19 +1,26 @@
 import React, {useEffect, useState} from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAuth from "../../../hooks/useAuth";
 
 const MyAddedTickets = () => {
 	const [tickets, setTickets] = useState([]);
 	const axiosSecure = useAxiosSecure();
+	const {user} = useAuth(); // logged-in vendor info
+
 	useEffect(() => {
-		axiosSecure.get("/tickets").then(res => {
-			setTickets(res.data);
-		});
-		// fetch("http://localhost:3000/tickets")
-		// 	.then(res => res.json())
-		// 	.then(data => {
-		// 		setTickets(data);
-		// 	});
-	}, [axiosSecure]);
+		if (!user?.email) return;
+
+		const fetchTickets = async () => {
+			try {
+				const res = await axiosSecure.get(`/vendor/my-tickets/${user.email}`);
+				setTickets(res.data);
+			} catch (err) {
+				console.error("Error fetching my tickets:", err);
+			}
+		};
+
+		fetchTickets();
+	}, [axiosSecure, user?.email]);
 	console.log(tickets);
 	return (
 		<div>
