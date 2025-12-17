@@ -17,6 +17,7 @@ import TransactionHistory from "../components/Dashboard/UserMenu/TransactionHist
 import VendorRevenue from "../components/Dashboard/VendorMenu/VendorRevenue";
 import AdminManageUsers from "../components/Dashboard/AdminMenu/AdminManageUsers";
 import AdminAdvertise from "../components/Dashboard/AdminMenu/AdminAdvertise";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
 	{
@@ -37,7 +38,11 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "all-tickets",
-				Component: AllTickets,
+				element: (
+					<PrivateRoute>
+						<AllTickets></AllTickets>
+					</PrivateRoute>
+				),
 			},
 			{
 				path: "tickets/:id",
@@ -47,7 +52,11 @@ const router = createBrowserRouter([
 	},
 	{
 		path: "dashboard",
-		Component: Dashboard,
+		element: (
+			<PrivateRoute>
+				<Dashboard></Dashboard>
+			</PrivateRoute>
+		),
 		children: [
 			{
 				path: "add-tickets",

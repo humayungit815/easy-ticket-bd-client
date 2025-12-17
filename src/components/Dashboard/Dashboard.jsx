@@ -4,6 +4,7 @@ import VendorMenu from "./VendorMenu/VendorMenu";
 import useRole from "../../hooks/useRole";
 import UserMenu from "./UserMenu/UserMenu";
 import AdminMenu from "./AdminMenu/AdminMenu";
+import logo from "../../assets/logo.png";
 
 const Dashboard = () => {
 	const [role, isRoleLoading] = useRole();
@@ -35,7 +36,9 @@ const Dashboard = () => {
 								<path d="M14 10l2 2l-2 2"></path>
 							</svg>
 						</label>
-						<div className="px-4">Navbar Title</div>
+						<div className="px-4">
+							<img className="h-10" src={logo} alt="" />
+						</div>
 					</nav>
 					{/* Page content here */}
 					<Outlet></Outlet>

@@ -5,18 +5,18 @@ import {Autoplay, Pagination} from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import login1 from "../../assets/loginImg1.jpg";
 import login2 from "../../assets/loginImg2.webp";
 import login3 from "../../assets/loginImg3.jpg";
 import useAuth from "../../hooks/useAuth";
 import {useForm} from "react-hook-form";
 import {toast} from "react-toastify";
 import {Link, useNavigate} from "react-router";
-import { FcGoogle } from "react-icons/fc";
+import {FcGoogle} from "react-icons/fc";
+import {saveOrUpdateUser} from "../../Utils";
 
 const Login = () => {
 	const navigate = useNavigate();
-	const {signIn} = useAuth();
+	const {signIn, signInWithGoogle} = useAuth();
 	const {register, handleSubmit} = useForm();
 
 	const handleLogin = data => {
@@ -30,6 +30,28 @@ const Login = () => {
 				console.log(err.message);
 				toast.error("Invalid email or password");
 			});
+	};
+	const handleGoogleSignIn = async () => {
+		try {
+			const result = await signInWithGoogle();
+			const user = result.user;
+
+			console.log("user g", user);
+
+			// save to backend
+			await saveOrUpdateUser({
+				name: user.displayName,
+				email: user.email,
+				photo: user.photoURL,
+				isFraud: false,
+			});
+
+			toast.success("Registration Successfully!");
+			navigate("/");
+		} catch (error) {
+			console.log(error);
+			toast.error("Google Sign In Failed!");
+		}
 	};
 	return (
 		<div className="flex flex-col md:flex-row w-full h-screen bg-white overflow-hidden">
@@ -131,6 +153,7 @@ const Login = () => {
 							<div className="flex-1 h-px bg-gray-300"></div>
 						</div>
 						<button
+							onClick={handleGoogleSignIn}
 							className="w-full flex items-center justify-center gap-3 
 														  py-2.5 rounded-xl 
 														   border border-gray-300 

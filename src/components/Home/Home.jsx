@@ -2,6 +2,9 @@ import React from "react";
 import bg from "../../assets/bg.jpg";
 import AddTickets from "../Dashboard/Vendor/AddTickets";
 import AdvertiseTicket from "./AdvertiseTicket/AdvertiseTicket";
+import RecentAddedTickets from "./RecentAddedTickets/RecentAddedTickets";
+import PopularRoute from "./PopularRoute/PopularRoute";
+import WhyChooseUs from "./WhyChooseUs/WhyChooseUs";
 const Home = () => {
 	return (
 		<div>
@@ -25,6 +28,15 @@ const Home = () => {
 			</div>
 			<div className="mt-20">
 				<AdvertiseTicket></AdvertiseTicket>
+			</div>
+			<div>
+				<RecentAddedTickets></RecentAddedTickets>
+			</div>
+			<div>
+				<PopularRoute></PopularRoute>
+			</div>
+			<div>
+				<WhyChooseUs></WhyChooseUs>
 			</div>
 		</div>
 	);

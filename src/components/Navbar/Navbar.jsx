@@ -1,53 +1,39 @@
-import React from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Link, NavLink} from "react-router";
 import logo from "../../assets/logo.png";
-import {FaBus, FaShip} from "react-icons/fa";
-import {IoMdAirplane} from "react-icons/io";
-import {FaTrainTram} from "react-icons/fa6";
+import {FaHome} from "react-icons/fa";
+import {IoLogOut, IoTicket} from "react-icons/io5";
 import useAuth from "../../hooks/useAuth";
 import {toast} from "react-toastify";
 import {MdDashboardCustomize} from "react-icons/md";
+import {CgProfile} from "react-icons/cg";
 
 const Navbar = () => {
 	const {user, logOut, loading} = useAuth();
 	const link = (
 		<>
-			<li>
-				<NavLink>
+			<li className="border-2 rounded-lg border-[#15803d] hover:bg-[#079d49] hover:text-white">
+				<NavLink to="/">
 					{" "}
-					<FaBus /> Bus
+					<FaHome /> Home
 				</NavLink>
 			</li>
-			<li>
-				<NavLink>
-					{" "}
-					<IoMdAirplane /> Air
-				</NavLink>
-			</li>
-			<li>
-				<NavLink>
-					{" "}
-					<FaTrainTram /> Train
-				</NavLink>
-			</li>
-			<li>
-				<NavLink>
-					{" "}
-					<FaShip /> Launch
-				</NavLink>
-			</li>
-			<li>
-				<NavLink to="/all-tickets">
-					{" "}
-					<FaShip /> All Tickets
-				</NavLink>
-			</li>
-			<li>
-				<NavLink to="/dashboard">
-					{" "}
-					<MdDashboardCustomize /> Dashboard
-				</NavLink>
-			</li>
+			{user && (
+				<li className="border-2 rounded-lg border-[#15803d] hover:bg-[#079d49] hover:text-white mx-4">
+					<NavLink to="/all-tickets">
+						{" "}
+						<IoTicket /> All Tickets
+					</NavLink>
+				</li>
+			)}
+			{user && (
+				<li className="border-2 rounded-lg border-[#15803d] hover:bg-[#079d49] hover:text-white">
+					<NavLink to="/dashboard">
+						{" "}
+						<MdDashboardCustomize /> Dashboard
+					</NavLink>
+				</li>
+			)}
 		</>
 	);
 
@@ -60,6 +46,21 @@ const Navbar = () => {
 				toast.error("an error happened");
 			});
 	};
+
+	const [open, setOpen] = useState(false);
+	const dropdownRef = useRef(null);
+
+	//Outside click handler
+	useEffect(() => {
+		const handleClickOutside = e => {
+			if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+				setOpen(false);
+			}
+		};
+
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => document.removeEventListener("mousedown", handleClickOutside);
+	}, []);
 	if (loading) {
 		return <p>Loading...</p>;
 	}
@@ -95,20 +96,51 @@ const Navbar = () => {
 					<img className="h-[50px]" src={logo} alt="" />
 				</div>
 				<div className="navbar-center hidden lg:flex">
-					<ul className="menu menu-horizontal px-1">{link}</ul>
+					<ul className="menu menu-horizontal px-1 font-medium text-[#079d49]">
+						{link}
+					</ul>
 				</div>
 				<div className="navbar-end flex gap-3">
 					{user ? (
-						<div className="flex">
-							<p>{user.displayName}</p>
-							<img className="w-[40px] border" src={user.photoURL} alt="" />
-
+						<div ref={dropdownRef} className="relative">
+							{/* Profile Button */}
 							<button
-								onClick={handleLogout}
-								className="bg-[#079d49] text-white px-4 py-2 rounded-xl font-medium"
+								onClick={() => setOpen(!open)}
+								className="flex items-center gap-3 focus:outline-none"
 							>
-								LogOut
+								<div className="text-right hidden sm:block mx-3">
+									<p className="font-semibold">Hi,</p>
+									<p className="font-semibold text-gray-800">
+										{user?.displayName}
+									</p>
+								</div>
+
+								<img
+									src={user?.photoURL}
+									alt="User"
+									className="w-10 h-10 rounded-full border-2 border-gray-200 object-cover"
+								/>
 							</button>
+
+							{/* Dropdown Menu */}
+							{open && (
+								<div className="absolute right-0 mt-3 w-48 bg-white rounded-xl shadow-lg border z-50">
+									<ul className="py-2 text-sm text-gray-700">
+										<Link to="/dashboard/profile">
+											<li className=" flex items-center gap-2 font-semibold px-4 py-2 hover:bg-gray-100 cursor-pointer">
+												<CgProfile /> Profile
+											</li>
+										</Link>
+
+										<button
+											onClick={handleLogout}
+											className="px-4 py-2 text-red-600 hover:bg-red-50 cursor-pointer flex items-center gap-2 font-semibold"
+										>
+											<IoLogOut /> Logout
+										</button>
+									</ul>
+								</div>
+							)}
 						</div>
 					) : (
 						<div className="flex gap-4">

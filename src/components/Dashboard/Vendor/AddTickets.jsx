@@ -41,6 +41,7 @@ const AddTickets = () => {
 			vendorEmail: data.vendorEmail,
 			isHidden: false,
 			isAdvertised: false,
+			createdAt: new Date(),
 
 			// Add verification status here
 			verificationStatus: "pending",
