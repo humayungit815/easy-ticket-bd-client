@@ -1,61 +1,65 @@
 import axios from "axios";
-import React from "react";
+import React, {useState} from "react";
 import {useForm} from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import {toast} from "react-toastify";
 
 const AddTickets = () => {
 	const {user} = useAuth();
-	const {
-		register,
-		handleSubmit,
-		// formState: {errors},
-	} = useForm();
+	const [loading, setLoading] = useState(false);
+	const {register, handleSubmit, reset} = useForm();
+
+	const axiosSecure = useAxiosSecure();
 
 	const onSubmit = async data => {
-		console.log(data);
-		const {image} = data;
-		// image upload
-		const imageFile = image[0];
-		console.log(imageFile);
-		const formData = new FormData();
-		formData.append("image", imageFile);
+		try {
+			setLoading(true);
 
-		const imageData = await axios.post(
-			"https://api.imgbb.com/1/upload?key=c5a52ad5907dccc6e55ce92b6444034b",
-			formData
-		);
-		const displayImage = imageData.data.data.display_url;
-		console.log(displayImage);
-		//  Prepare object to send ----------
-		const ticketInfo = {
-			TicketTitle: data.TicketTitle,
-			fromLocation: data.fromLocation,
-			toLocation: data.toLocation,
-			transportType: data.transportType,
-			price: parseFloat(data.price),
-			quantity: parseInt(data.quantity),
-			departure: data.departure,
-			perks: data.perks || [],
-			image: displayImage,
-			vendorName: data.vendorName,
-			vendorEmail: data.vendorEmail,
-			isHidden: false,
-			isAdvertised: false,
-			createdAt: new Date(),
+			const imageFile = data.image[0];
+			const formData = new FormData();
+			formData.append("image", imageFile);
 
-			// Add verification status here
-			verificationStatus: "pending",
-		};
-		console.log("after image upload ticketInfo", ticketInfo);
-		//  Send to Backend ----------
-		const res = await fetch(`${import.meta.env.VITE_API_URL}/tickets`, {
-			method: "POST",
-			headers: {"Content-Type": "application/json"},
-			body: JSON.stringify(ticketInfo),
-		});
+			//  Upload image
+			const imageData = await axios.post(
+				"https://api.imgbb.com/1/upload?key=c5a52ad5907dccc6e55ce92b6444034b",
+				formData
+			);
 
-		const result = await res.json();
-		console.log(result);
+			const displayImage = imageData.data.data.display_url;
+
+			//  Prepare ticket object
+			const ticketInfo = {
+				TicketTitle: data.TicketTitle,
+				fromLocation: data.fromLocation,
+				toLocation: data.toLocation,
+				transportType: data.transportType,
+				price: parseFloat(data.price),
+				quantity: parseInt(data.quantity),
+				departure: data.departure,
+				perks: data.perks || [],
+				image: displayImage,
+				vendorName: data.vendorName,
+				vendorEmail: data.vendorEmail,
+				isHidden: false,
+				isAdvertised: false,
+				createdAt: new Date(),
+				verificationStatus: "pending",
+			};
+
+			// 3️⃣ Send to backend
+			const res = await axiosSecure.post("/tickets", ticketInfo);
+
+			if (res.data?.insertedId) {
+				toast.success("Your Add Tickets Request Send Successfully!");
+				reset(); // ✅ form reset
+				// optional: toast.success("Ticket added successfully");
+			}
+		} catch (error) {
+			console.error("Error adding ticket:", error);
+		} finally {
+			setLoading(false); // 🔚 stop loading (success or error)
+		}
 	};
 
 	return (
@@ -169,10 +173,14 @@ const AddTickets = () => {
 					{/* Submit */}
 					<button
 						type="submit"
-						// disabled={loading}
-						className="btn btn-primary w-full"
+						disabled={loading}
+						className="btn bg-[#079d49] text-white w-full"
 					>
-						Add Ticket
+						{loading ? (
+							<span className="loading loading-spinner loading-sm"></span>
+						) : (
+							"Add Ticket"
+						)}
 					</button>
 				</form>
 			</div>

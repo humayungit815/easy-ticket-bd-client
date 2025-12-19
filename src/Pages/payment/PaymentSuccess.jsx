@@ -23,8 +23,11 @@ const PaymentSuccess = () => {
 				<p className="text-gray-600 mb-6">
 					Thank you for your purchase. Your order is being processed.
 				</p>
-				<Link className="inline-block bg-lime-500 text-white font-semibold py-2 px-4 rounded hover:bg-lime-600 transition duration-300">
-					Go to My Orders
+				<Link
+					to="/dashboard/transaction-history"
+					className="inline-block bg-[#079d49] text-white font-semibold py-2 px-4 rounded transition duration-300"
+				>
+					See Your Transaction
 				</Link>
 			</div>
 		</div>

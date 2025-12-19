@@ -1,65 +1,54 @@
 import React from "react";
-import {Link, NavLink} from "react-router";
-import profileIcon from "../../../assets/profile-icon.jpg";
-import booking from "../../../assets/booking-img.jpg";
-import transaction from "../../../assets/transaction-data.png";
+import {NavLink} from "react-router";
 
 const UserMenu = () => {
 	return (
 		<div>
-			<Link to="profile">
-				<li>
-					<button
-						className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-						data-tip="Profile"
-					>
-						{/* Settings icon */}
-						<img className="h-[30px]" src={profileIcon} alt="" />
-						<span className="is-drawer-close:hidden">Profile</span>
-					</button>
-				</li>
-			</Link>
-			<li>
-				<NavLink>my documents</NavLink>
-			</li>
-			<Link to="my-booked-tickets">
-				<li>
-					<button
-						className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-						data-tip="Settings"
-					>
-						{/* Settings icon */}
-						<img className="h-[30px] " src={booking} alt="" />
-						<span className="is-drawer-close:hidden">My Booked Tickets</span>
-					</button>
-				</li>
-			</Link>
-			<Link to="transaction-history">
-				<li>
-					<button
-						className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-						data-tip="Settings"
-					>
-						{/* Settings icon */}
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 24 24"
-							strokeLinejoin="round"
-							strokeLinecap="round"
-							strokeWidth="2"
-							fill="none"
-							stroke="currentColor"
-							className="my-1.5 inline-block size-4"
-						>
-							<path d="M20 7h-9"></path>
-							<path d="M14 17H5"></path>
-							<circle cx="17" cy="17" r="3"></circle>
-							<circle cx="7" cy="7" r="3"></circle>
-						</svg>
-						<span className="is-drawer-close:hidden">Transaction History</span>
-					</button>
-				</li>
-			</Link>
+			
+			<div>
+				<NavLink
+				to="profile"
+					className={({isActive}) =>
+						`flex items-center p-3 rounded-lg transition font-semibold ${
+							isActive
+								? "bg-blue-600 text-white"
+								: "text-slate-400 hover:bg-slate-800 hover:text-white"
+						}`
+					}
+				>
+					Profile
+				</NavLink>
+			</div>
+
+			<div className="my-3">
+				<NavLink
+					to="my-booked-tickets"
+					className={({isActive}) =>
+						`flex items-center p-3 rounded-lg transition font-semibold ${
+							isActive
+								? "bg-blue-600 text-white"
+								: "text-slate-400 hover:bg-slate-800 hover:text-white"
+						}`
+					}
+				>
+					My Booked Tickets
+				</NavLink>
+			</div>
+
+			<div>
+				<NavLink
+					to="transaction-history"
+					className={({isActive}) =>
+						`flex items-center p-3 rounded-lg transition font-semibold ${
+							isActive
+								? "bg-blue-600 text-white"
+								: "text-slate-400 hover:bg-slate-800 hover:text-white"
+						}`
+					}
+				>
+					Transaction History
+				</NavLink>
+			</div>
 		</div>
 	);
 };

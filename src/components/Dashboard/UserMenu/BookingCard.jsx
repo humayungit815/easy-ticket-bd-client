@@ -64,17 +64,23 @@ const BookingCard = ({booking}) => {
 				className="w-full h-48 object-cover"
 			/>
 
-			<div className="p-4">
+			<div className="p-4 space-y-2">
 				<h2 className="text-lg font-semibold">{booking.ticketTitle}</h2>
 
-				<p className="text-sm text-gray-600">
+				<p className="text-sm text-gray-600 font-medium">
 					{booking.fromLocation} → {booking.toLocation}
 				</p>
 
-				<p className="text-sm">Qty: {booking.bookingQty}</p>
-				<p className="text-sm">Total: ৳{booking.totalPrice}</p>
+				<div className="flex justify-between font-medium">
+					<p className="text-sm bg-[#1ec466] px-3 py-1 text-white rounded-2xl">
+						Qty: {booking.bookingQty}
+					</p>
+					<p className="text-sm bg-[#c4c11e] px-3 py-1 text-white rounded-2xl">
+						Total: ${booking.totalPrice}
+					</p>
+				</div>
 
-				<p className="text-sm">
+				<p className="text-sm font-medium">
 					Departure: {new Date(booking.departure).toLocaleString()}
 				</p>
 
@@ -93,9 +99,13 @@ const BookingCard = ({booking}) => {
 					</span>
 				</p>
 
-				<p className="text-xs text-gray-500 mb-3">
-					Countdown: {days}d {hours}h {minutes}m {seconds}s
-				</p>
+				{booking.status === "rejected" ? (
+					""
+				) : (
+					<p className="text-xs text-gray-500 mb-3 font-medium">
+						Countdown: {days}d {hours}h {minutes}m {seconds}s
+					</p>
+				)}
 
 				{booking.status === "accepted" && (
 					<button
@@ -104,7 +114,7 @@ const BookingCard = ({booking}) => {
 						className={`px-4 py-2 text-sm rounded text-white ${
 							isExpired
 								? "bg-gray-400 cursor-not-allowed"
-								: "bg-green-600 hover:bg-green-700"
+								: "bg-green-600 hover:bg-green-700 w-full font-medium"
 						}`}
 					>
 						Pay Now

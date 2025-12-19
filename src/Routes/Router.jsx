@@ -18,10 +18,13 @@ import VendorRevenue from "../components/Dashboard/VendorMenu/VendorRevenue";
 import AdminManageUsers from "../components/Dashboard/AdminMenu/AdminManageUsers";
 import AdminAdvertise from "../components/Dashboard/AdminMenu/AdminAdvertise";
 import PrivateRoute from "./PrivateRoute";
+import UpdateTicket from "../components/Dashboard/VendorMenu/UpdateTicket";
+import ErrorPage from "../components/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
 	{
 		path: "/",
+		errorElement: <ErrorPage></ErrorPage>,
 		Component: MainLayouts,
 		children: [
 			{
@@ -101,6 +104,10 @@ const router = createBrowserRouter([
 			{
 				path: "admin-advertise",
 				Component: AdminAdvertise,
+			},
+			{
+				path: "update-ticket/:id",
+				Component: UpdateTicket,
 			},
 		],
 	},

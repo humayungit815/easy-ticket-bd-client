@@ -2,12 +2,26 @@ import React, {useEffect, useState} from "react";
 import useAxiosSecure from "./../../hooks/useAxiosSecure";
 import {useNavigate} from "react-router";
 import useAuth from "../../hooks/useAuth";
+import {
+	Calendar,
+	MapPin,
+	Search,
+	ArrowRight,
+	Filter,
+	Ship,
+	Train,
+	Plane,
+	Bus,
+	ArrowLeft,
+	CheckCircle2,
+} from "lucide-react";
 
 const AllTickets = () => {
 	const {loading} = useAuth();
 	const [tickets, setTickets] = useState([]);
 	const axiosSecure = useAxiosSecure();
 	const navigate = useNavigate();
+	const brandGreen = "#079d49";
 
 	const [fromInput, setFromInput] = useState("");
 	const [toInput, setToInput] = useState("");
@@ -16,17 +30,13 @@ const AllTickets = () => {
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(1);
 
+	// Sorting Logic (Preserved)
 	const sortedTickets = [...tickets].sort((a, b) => {
-		if (sortOrder === "low") {
-			return a.price - b.price;
-		}
-		if (sortOrder === "high") {
-			return b.price - a.price;
-		}
+		if (sortOrder === "low") return a.price - b.price;
+		if (sortOrder === "high") return b.price - a.price;
 		return 0;
 	});
 
-	// applied search states
 	const [search, setSearch] = useState({
 		from: "",
 		to: "",
@@ -46,7 +56,6 @@ const AllTickets = () => {
 						limit: 6,
 					},
 				});
-
 				setTickets(res.data.tickets);
 				setCurrentPage(res.data.currentPage);
 				setTotalPages(res.data.totalPages);
@@ -54,7 +63,6 @@ const AllTickets = () => {
 				console.error(err);
 			}
 		};
-
 		fetchTickets();
 	}, [axiosSecure, search, currentPage]);
 
@@ -65,174 +73,231 @@ const AllTickets = () => {
 			transportType: transportInput,
 		});
 	};
+
 	const handleSeeDetails = id => {
 		navigate(`/tickets/${id}`);
 	};
 
 	if (loading) {
-		return <p>Loading...</p>;
+		return (
+			<div
+				className="flex justify-center items-center h-screen font-black text-2xl animate-pulse"
+				style={{color: brandGreen}}
+			>
+				LOADING TICKETS...
+			</div>
+		);
 	}
 
 	return (
-		<div className="max-w-7xl mx-auto p-6">
-			<h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
-				All Tickets
-			</h1>
-			<div className="flex justify-end mb-6">
-				<select
-					value={sortOrder}
-					onChange={e => setSortOrder(e.target.value)}
-					className="select select-bordered w-56"
-				>
-					<option value="">Sort by Price</option>
-					<option value="low">Low → High</option>
-					<option value="high">High → Low</option>
-				</select>
-			</div>
+		<div className="min-h-screen pb-20">
+			{/* 1. Header & Search Bar Section */}
+			<div className=" border-b border-gray-100 pt-12 pb-8 px-6">
+				<div className="max-w-7xl mx-auto">
+					<h1 className="text-4xl font-black text-slate-900 tracking-tighter mb-8">
+						Explore All <span style={{color: brandGreen}}>Tickets</span>
+					</h1>
 
-			{/* search */}
-			<div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-				<input
-					type="text"
-					placeholder="From Location"
-					value={fromInput}
-					onChange={e => setFromInput(e.target.value)}
-					className="input input-bordered w-full"
-				/>
-
-				<input
-					type="text"
-					placeholder="To Location"
-					value={toInput}
-					onChange={e => setToInput(e.target.value)}
-					className="input input-bordered w-full"
-				/>
-
-				<select
-					value={transportInput}
-					onChange={e => setTransportInput(e.target.value)}
-					className="select select-bordered w-full"
-				>
-					<option value="all">All Transport</option>
-					<option value="Bus">Bus</option>
-					<option value="Train">Train</option>
-					<option value="Launch">Launch</option>
-					<option value="Plane">Plane</option>
-				</select>
-
-				<button onClick={handleSearch} className="btn btn-primary w-full">
-					Search
-				</button>
-			</div>
-
-			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
-				{sortedTickets.map(ticket => (
-					<div
-						key={ticket._id}
-						className="bg-white shadow-md rounded-xl overflow-hidden hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
-					>
-						{/* Image with overlay */}
-						<div className="relative">
-							<img
-								src={ticket.image}
-								alt={ticket.TicketTitle}
-								className="w-full h-48 object-cover"
+					{/* New Modern Filter Bar */}
+					<div className="bg-white shadow-2xl shadow-gray-200/50 rounded-[2.5rem] p-4 border border-gray-100 grid grid-cols-1 md:grid-cols-4 gap-4">
+						<div className="flex items-center gap-3 px-4 py-3 bg-gray-50 rounded-2xl border border-[#079d49] transition-all">
+							<MapPin size={18} className="text-gray-400" />
+							<input
+								type="text"
+								placeholder="From where?"
+								value={fromInput}
+								onChange={e => setFromInput(e.target.value)}
+								className="bg-transparent w-full outline-none font-bold text-sm"
 							/>
-							<div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent p-2">
-								<h2 className="text-white font-bold text-lg">
-									{ticket.TicketTitle}
-								</h2>
-							</div>
 						</div>
 
-						<div className="p-4">
-							<p className="text-sm text-gray-600 mb-1">
-								{ticket.fromLocation} → {ticket.toLocation}
-							</p>
-							<p className="text-sm text-gray-600 mb-1">
-								Transport: {ticket.transportType}
-							</p>
-							<p className="text-sm text-gray-600 mb-1">
-								Price: ৳{ticket.price} | Quantity: {ticket.quantity}
-							</p>
-							<p className="text-sm text-gray-600 mb-2">
-								Departure:{" "}
-								{new Date(ticket.departure).toLocaleString("en-US", {
-									weekday: "short",
-									year: "numeric",
-									month: "short",
-									day: "numeric",
-									hour: "2-digit",
-									minute: "2-digit",
-								})}
-							</p>
+						<div className="flex items-center gap-3 px-4 py-3 bg-gray-50 rounded-2xl  border border-[#079d49] transition-all">
+							<MapPin size={18} className="text-gray-400" />
+							<input
+								type="text"
+								placeholder="To where?"
+								value={toInput}
+								onChange={e => setToInput(e.target.value)}
+								className="bg-transparent w-full outline-none font-bold text-sm"
+							/>
+						</div>
 
-							{/* Perks badges */}
-							<div className="flex flex-wrap gap-2 mb-4">
-								{ticket.perks?.map((perk, idx) => (
-									<span
-										key={idx}
-										className={`text-xs px-2 py-1 rounded-full ${
-											perk === "AC"
-												? "bg-blue-100 text-blue-800"
-												: perk === "Breakfast"
-												? "bg-green-100 text-green-800"
-												: "bg-yellow-100 text-yellow-800"
-										}`}
-									>
-										{perk}
-									</span>
-								))}
-							</div>
-
-							{/* See details button */}
-							<button
-								onClick={() => handleSeeDetails(ticket._id)}
-								className="w-full px-4 py-2 rounded-md bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white text-sm font-semibold shadow-lg transition-all duration-200"
+						<div className="flex items-center gap-3 px-4 py-3 bg-gray-50 rounded-2xl">
+							<Filter size={18} className="text-gray-400" />
+							<select
+								value={transportInput}
+								onChange={e => setTransportInput(e.target.value)}
+								className="bg-transparent w-full outline-none font-bold text-sm"
 							>
-								See Details
-							</button>
+								<option value="all">Any Transport</option>
+								<option value="Bus">Bus</option>
+								<option value="Train">Train</option>
+								<option value="Launch">Launch</option>
+								<option value="Plane">Plane</option>
+							</select>
 						</div>
+
+						<button
+							onClick={handleSearch}
+							style={{backgroundColor: brandGreen}}
+							className="w-full flex items-center justify-center gap-2 text-white font-black rounded-2xl py-4 shadow-lg hover:brightness-110 active:scale-95 transition-all"
+						>
+							<Search size={18} /> SEARCH
+						</button>
 					</div>
-				))}
+				</div>
 			</div>
-			{/* pagination */}
-			<div className="flex justify-center mt-6 gap-2">
-				<button
-					disabled={currentPage === 1}
-					onClick={() => setCurrentPage(prev => prev - 1)}
-					className="btn btn-sm"
-				>
-					Prev
-				</button>
 
-				{[...Array(totalPages)].map((_, idx) => (
-					<button
-						key={idx}
-						onClick={() => setCurrentPage(idx + 1)}
-						className={`btn btn-sm ${
-							currentPage === idx + 1 ? "btn-primary" : ""
-						}`}
+			{/* 2. Sorting & Content Grid */}
+			<div className="max-w-7xl mx-auto p-6">
+				<div className="flex justify-between items-center mb-10">
+					<select
+						value={sortOrder}
+						onChange={e => setSortOrder(e.target.value)}
+						className="bg-white border-2 border-gray-100 font-bold text-xs py-2 px-4 rounded-xl outline-none focus:border-[#079d49]"
 					>
-						{idx + 1}
-					</button>
-				))}
+						<option value="">Sort by Price</option>
+						<option value="low">Lowest First</option>
+						<option value="high">Highest First</option>
+					</select>
+				</div>
 
-				<button
-					disabled={currentPage === totalPages}
-					onClick={() => setCurrentPage(prev => prev + 1)}
-					className="btn btn-sm"
-				>
-					Next
-				</button>
+				<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+					{sortedTickets.map(ticket => (
+						<div
+							key={ticket.id}
+							className="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100"
+						>
+							{/* Image Section */}
+							<div className="relative h-48 overflow-hidden">
+								<img
+									src={ticket.image}
+									alt={ticket.transportType}
+									className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+								/>
+								<div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full flex items-center gap-2 text-xs font-bold text-gray-800">
+									<span style={{color: brandGreen}}>
+										{ticket.transportType}
+									</span>
+								</div>
+							</div>
+
+							{/* Content Section */}
+							<div className="p-6">
+								<div className="flex justify-between items-start mb-2">
+									<h3 className="font-bold text-lg text-gray-900 leading-snug">
+										{ticket.TicketTitle}
+									</h3>
+								</div>
+
+								<div className="flex items-center gap-1 text-sm text-gray-500 mb-4">
+									<MapPin size={14} />
+									<span>Available Now</span>
+								</div>
+
+								{/* Price & Quantity Area */}
+								<div className="flex items-end justify-between mb-6 pb-4 border-b border-gray-50">
+									<div>
+										<p className="text-xs text-gray-400 uppercase font-bold tracking-wider">
+											Price per unit
+										</p>
+										<p
+											className="text-2xl font-black"
+											style={{color: brandGreen}}
+										>
+											${ticket.price}
+										</p>
+									</div>
+									<div className="text-right">
+										<p className="text-xs font-bold px-2 py-1 rounded bg-green-50 text-green-700">
+											{ticket.quantity} Seats Left
+										</p>
+									</div>
+								</div>
+
+								{/* Perks Section */}
+
+								<div className="flex flex-wrap gap-2 mb-4">
+									{ticket.perks?.map((perk, idx) => (
+										<span
+											key={idx}
+											className={`text-xs flex items-center gap-2 px-2 py-1 rounded-full ${
+												perk === "AC"
+													? "bg-blue-100 text-blue-800"
+													: perk === "Breakfast"
+													? "bg-green-100 text-green-800"
+													: "bg-yellow-100 text-yellow-800"
+											}`}
+										>
+											<CheckCircle2 size={14} style={{color: brandGreen}} />
+											{perk}
+										</span>
+									))}
+								</div>
+
+								
+								<button
+									onClick={() => handleSeeDetails(ticket._id)}
+									className="cursor-pointer w-full py-3 rounded-xl font-bold text-white transition-all active:scale-95 shadow-lg shadow-green-900/10"
+									style={{backgroundColor: brandGreen}}
+								>
+									See Details
+								</button>
+							</div>
+						</div>
+					))}
+				</div>
+
+				{/* Pagination */}
+				{totalPages > 1 && (
+					<div className="flex justify-center mt-16 gap-3">
+						<button
+							disabled={currentPage === 1}
+							onClick={() => setCurrentPage(prev => prev - 1)}
+							className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white border border-gray-200 font-bold disabled:opacity-30"
+						>
+							<ArrowLeft size={18} />
+						</button>
+
+						{[...Array(totalPages)].map((_, idx) => (
+							<button
+								key={idx}
+								onClick={() => setCurrentPage(idx + 1)}
+								className={`w-12 h-12 rounded-2xl font-black transition-all ${
+									currentPage === idx + 1
+										? "text-white shadow-lg"
+										: "bg-white border border-gray-200 text-gray-400"
+								}`}
+								style={{
+									backgroundColor: currentPage === idx + 1 ? brandGreen : "",
+								}}
+							>
+								{idx + 1}
+							</button>
+						))}
+
+						<button
+							disabled={currentPage === totalPages}
+							onClick={() => setCurrentPage(prev => prev + 1)}
+							className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white border border-gray-200 font-bold disabled:opacity-30"
+						>
+							<ArrowRight size={18} />
+						</button>
+					</div>
+				)}
+
+				{/* No tickets fallback */}
+				{tickets.length === 0 && (
+					<div className="text-center mt-20">
+						<p className="text-2xl font-black text-gray-300 mb-2 italic">
+							Oops! Nothing here.
+						</p>
+						<p className="text-gray-400 font-bold">
+							Try adjusting your search filters.
+						</p>
+					</div>
+				)}
 			</div>
-
-			{/* No tickets fallback */}
-			{tickets.length === 0 && (
-				<p className="text-center text-gray-500 mt-10">
-					No approved tickets available.
-				</p>
-			)}
 		</div>
 	);
 };

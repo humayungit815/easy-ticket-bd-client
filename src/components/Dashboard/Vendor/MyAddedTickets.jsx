@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
+import {Link, useNavigate} from "react-router";
+import Swal from "sweetalert2";
 
 const MyAddedTickets = () => {
 	const [tickets, setTickets] = useState([]);
 	const axiosSecure = useAxiosSecure();
 	const {user} = useAuth(); // logged-in vendor info
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (!user?.email) return;
@@ -21,7 +24,33 @@ const MyAddedTickets = () => {
 
 		fetchTickets();
 	}, [axiosSecure, user?.email]);
-	console.log(tickets);
+
+	const handleUpdate = ticket => {
+		navigate(`/dashboard/update-ticket/${ticket._id}`);
+	};
+	const handleDelete = async id => {
+		Swal.fire({
+			title: "Are you sure?",
+			text: "You won't be able to revert this!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#d33",
+			cancelButtonColor: "#079d49",
+			confirmButtonText: "Yes, delete it!",
+		}).then(async result => {
+			if (result.isConfirmed) {
+				try {
+					const res = await axiosSecure.delete(`/vendor/delete-ticket/${id}`);
+
+					if (res.data.deletedCount > 0) {
+						setTickets(prev => prev.filter(ticket => ticket._id !== id));
+					}
+				} catch (err) {
+					console.error(err);
+				}
+			}
+		});
+	};
 	return (
 		<div>
 			<div className="max-w-7xl mx-auto p-6">
@@ -51,7 +80,7 @@ const MyAddedTickets = () => {
 									Transport: {ticket.transportType}
 								</p>
 								<p className="text-sm text-gray-600 mb-1">
-									Price: ৳{ticket.price} | Quantity: {ticket.quantity}
+									Price: ${ticket.price} | Quantity: {ticket.quantity}
 								</p>
 								<p className="text-sm text-gray-600 mb-1">
 									Departure: {new Date(ticket.departure).toLocaleString()}
@@ -77,6 +106,39 @@ const MyAddedTickets = () => {
 								>
 									Status: {ticket.verificationStatus}
 								</p>
+								{ticket.verificationStatus === "rejected" ? (
+									<div className="flex justify-between mt-3">
+										<button
+											disabled
+											className="bg-gray-400 text-white font-medium px-4 py-1 rounded-xl"
+										>
+											Update
+										</button>
+
+										<button
+											disabled
+											className="bg-gray-400 text-white font-medium px-4 py-1 rounded-xl"
+										>
+											Delete
+										</button>
+									</div>
+								) : (
+									<div className="flex justify-between mt-3">
+										<button
+											onClick={() => handleUpdate(ticket)}
+											className="bg-[#079d49] text-white font-medium px-4 py-1 rounded-xl"
+										>
+											Update
+										</button>
+
+										<button
+											onClick={() => handleDelete(ticket._id)}
+											className="bg-[#e70d0d] text-white font-medium px-4 py-1 rounded-xl"
+										>
+											Delete
+										</button>
+									</div>
+								)}
 							</div>
 						</div>
 					))}

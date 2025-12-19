@@ -1,7 +1,6 @@
 import React from "react";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay, Pagination} from "swiper/modules";
-import login1 from "../../assets/loginImg1.jpg";
 import login2 from "../../assets/loginImg2.webp";
 import login3 from "../../assets/loginImg3.jpg";
 import "swiper/css";
@@ -64,7 +63,7 @@ const Register = () => {
 	};
 
 	return (
-		<div className="flex flex-col md:flex-row w-full bg-white overflow-hidden">
+		<div className="flex flex-col md:flex-row w-full bg-white overflow-hidden pt-[69px]">
 			{/* LEFT SIDE IMAGE SLIDER */}
 			<div className="hidden md:block md:w-1/2 overflow-hidden rounded-r-3xl">
 				<Swiper
@@ -121,6 +120,9 @@ const Register = () => {
 								className="w-full px-4 py-3 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
 								{...register("name", {required: true, maxLength: 20})}
 							/>
+							{errors.name?.type === "required" && (
+								<p className="text-red-500">Name is Required</p>
+							)}
 						</div>
 						{/* Email */}
 						<div>
@@ -134,8 +136,17 @@ const Register = () => {
 								type="email"
 								placeholder="Enter your email"
 								className="w-full px-4 py-3 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-								{...register("email", {required: true})}
+								{...register("email", {
+									required: true,
+									pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+								})}
 							/>
+							{errors.email?.type === "required" && (
+								<p className="text-red-500">Email is Required</p>
+							)}
+							{errors.email?.type === "pattern" && (
+								<p className="text-red-500">Please Input Valid Email</p>
+							)}
 						</div>
 						{/* Photo URL */}
 						<div>
@@ -148,10 +159,12 @@ const Register = () => {
 							<input
 								type="url"
 								placeholder="Enter your photo URL"
-								required
 								className="w-full px-4 py-3 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
 								{...register("photo", {required: true})}
 							/>
+							{errors.password?.type === "required" && (
+								<p className="text-red-500">Photo URL is Required</p>
+							)}
 						</div>
 
 						{/* Password */}
@@ -166,10 +179,21 @@ const Register = () => {
 								type="password"
 								id="password"
 								placeholder="••••••••"
-								required
 								className="w-full pr-10 px-4 py-3 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-								{...register("password", {required: true})}
+								{...register("password", {
+									required: true,
+									pattern: /^(?=.*[A-Z])(?=.*[a-z]).{6,}$/,
+								})}
 							/>
+							{errors.password?.type === "required" && (
+								<p className="text-red-500">Password is Required</p>
+							)}
+							{errors.password?.type === "pattern" && (
+								<p className="text-red-500">
+									Password must contain uppercase, lowercase letters and be at
+									least 6 characters long.
+								</p>
+							)}
 						</div>
 
 						{/* Forgot */}
@@ -185,8 +209,7 @@ const Register = () => {
 						{/* Login Button */}
 						<button
 							type="submit"
-							className="w-full py-3 text-lg font-medium text-white rounded-md transition duration-150 ease-in-out shadow-sm"
-							style={{backgroundColor: "#A8D8B6"}}
+							className="w-full py-3 text-lg font-medium text-white rounded-md transition duration-150 ease-in-out shadow-sm bg-[#079d49]"
 						>
 							Sign Up
 						</button>
@@ -196,6 +219,7 @@ const Register = () => {
 							<div className="flex-1 h-px bg-gray-300"></div>
 						</div>
 						<button
+						type="button"
 							onClick={handleGoogleSignIn}
 							className="
                                 w-full flex items-center justify-center gap-3 

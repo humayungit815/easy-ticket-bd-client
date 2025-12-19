@@ -1,12 +1,12 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Link, NavLink} from "react-router";
-import logo from "../../assets/logo.png";
 import {FaHome} from "react-icons/fa";
 import {IoLogOut, IoTicket} from "react-icons/io5";
 import useAuth from "../../hooks/useAuth";
 import {toast} from "react-toastify";
 import {MdDashboardCustomize} from "react-icons/md";
 import {CgProfile} from "react-icons/cg";
+import {Ticket} from "lucide-react";
 
 const Navbar = () => {
 	const {user, logOut, loading} = useAuth();
@@ -65,8 +65,8 @@ const Navbar = () => {
 		return <p>Loading...</p>;
 	}
 	return (
-		<div>
-			<nav className="navbar bg-base-100 shadow-sm px-25">
+		<div className="fixed top-0 left-0 w-full z-50">
+			<nav className="navbar bg-white shadow-sm px-20">
 				<div className="navbar-start">
 					<div className="dropdown">
 						<div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -93,7 +93,17 @@ const Navbar = () => {
 							{link}
 						</ul>
 					</div>
-					<img className="h-[50px]" src={logo} alt="" />
+					<Link to="/">
+						<div className="flex items-center gap-2 cursor-pointer">
+							<div className="p-1.5 rounded-lg bg-[#079d49]">
+								<Ticket className="text-white" size={24} />
+							</div>
+							<span className="text-2xl font-black tracking-tighter">
+								Easy<span className="text-[#079d49]">-Ticket</span>
+								<span className="text-gray-400 font-light">BD</span>
+							</span>
+						</div>
+					</Link>
 				</div>
 				<div className="navbar-center hidden lg:flex">
 					<ul className="menu menu-horizontal px-1 font-medium text-[#079d49]">

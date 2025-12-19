@@ -17,7 +17,11 @@ import {saveOrUpdateUser} from "../../Utils";
 const Login = () => {
 	const navigate = useNavigate();
 	const {signIn, signInWithGoogle} = useAuth();
-	const {register, handleSubmit} = useForm();
+	const {
+		register,
+		handleSubmit,
+		formState: {errors},
+	} = useForm();
 
 	const handleLogin = data => {
 		signIn(data.email, data.password)
@@ -54,7 +58,7 @@ const Login = () => {
 		}
 	};
 	return (
-		<div className="flex flex-col md:flex-row w-full h-screen bg-white overflow-hidden">
+		<div className="flex flex-col md:flex-row w-full h-screen bg-white pt-[69px] overflow-hidden">
 			{/* LEFT SIDE IMAGE SLIDER */}
 			<div className="hidden md:block md:w-1/2 h-full overflow-hidden rounded-r-3xl">
 				<Swiper
@@ -105,10 +109,12 @@ const Login = () => {
 								type="email"
 								id="mobile"
 								placeholder="Enter email"
-								required
 								className="w-full px-4 py-3 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
 								{...register("email", {required: true})}
 							/>
+							{errors.email?.type === "required" && (
+								<p className="text-red-500">Email is Required</p>
+							)}
 						</div>
 
 						{/* Password */}
@@ -123,10 +129,12 @@ const Login = () => {
 								type="password"
 								id="password"
 								placeholder="••••••••"
-								required
 								className="w-full pr-10 px-4 py-3 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
 								{...register("password", {required: true})}
 							/>
+							{errors.email?.type === "required" && (
+								<p className="text-red-500">Password is Required</p>
+							)}
 						</div>
 
 						{/* Forgot */}
@@ -142,8 +150,7 @@ const Login = () => {
 						{/* Login Button */}
 						<button
 							type="submit"
-							className="w-full py-3 text-lg font-medium text-white rounded-md transition duration-150 ease-in-out shadow-sm"
-							style={{backgroundColor: "#A8D8B6"}}
+							className="w-full py-3 text-lg font-medium text-white rounded-md transition duration-150 ease-in-out shadow-sm bg-[#079d49]"
 						>
 							Log In
 						</button>
@@ -153,6 +160,7 @@ const Login = () => {
 							<div className="flex-1 h-px bg-gray-300"></div>
 						</div>
 						<button
+						type="button"
 							onClick={handleGoogleSignIn}
 							className="w-full flex items-center justify-center gap-3 
 														  py-2.5 rounded-xl 
