@@ -11,7 +11,6 @@ import {Ticket} from "lucide-react";
 const Navbar = () => {
 	const {user, logOut} = useAuth();
 
-
 	const handleLogout = () => {
 		logOut()
 			.then(() => {

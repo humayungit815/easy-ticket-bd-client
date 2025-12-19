@@ -15,7 +15,7 @@ const MyAddedTickets = () => {
 
 		const fetchTickets = async () => {
 			try {
-				const res = await axiosSecure.get(`/vendor/my-tickets/${user.email}`);
+				const res = await axiosSecure.get(`/vendor/my-tickets`);
 				setTickets(res.data);
 			} catch (err) {
 				console.error("Error fetching my tickets:", err);

@@ -47,7 +47,7 @@ const AddTickets = () => {
 				verificationStatus: "pending",
 			};
 
-			// 3️⃣ Send to backend
+			
 			const res = await axiosSecure.post("/tickets", ticketInfo);
 
 			if (res.data?.insertedId) {

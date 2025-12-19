@@ -13,7 +13,7 @@ const RequestedBookings = () => {
 		if (!user?.email) return;
 
 		axiosSecure
-			.get(`/vendor/bookings?email=${user.email}`, {
+			.get(`/vendor/bookings`, {
 				headers: {"Cache-Control": "no-cache"},
 			})
 			.then(res => setRequests(res.data))

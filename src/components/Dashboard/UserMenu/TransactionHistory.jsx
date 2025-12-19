@@ -11,7 +11,7 @@ const TransactionHistory = () => {
 		if (!user?.email) return;
 
 		axiosSecure
-			.get(`/transactions?email=${user.email}`)
+			.get(`/transactions`)
 			.then(res => setTransactions(res.data))
 			.catch(err => console.error(err));
 	}, [user?.email, axiosSecure]);

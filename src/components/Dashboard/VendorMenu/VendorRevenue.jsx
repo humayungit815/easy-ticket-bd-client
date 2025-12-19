@@ -35,7 +35,7 @@ const VendorRevenue = () => {
 			if (!user?.email) return;
 			try {
 				const res = await axiosSecure.get(
-					`/vendor/revenue?email=${user.email}`
+					`/vendor/revenue`
 				);
 				setData(res.data);
 			} catch (err) {

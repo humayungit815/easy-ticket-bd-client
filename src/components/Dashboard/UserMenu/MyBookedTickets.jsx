@@ -12,13 +12,12 @@ const MyBookedTickets = () => {
 		if (!user?.email) return;
 
 		axiosSecure
-			.get(`/bookings?email=${user.email}`, {
+			.get(`/bookings`, {
 				headers: {"Cache-Control": "no-cache"},
 			})
 			.then(res => setBookings(res.data))
 			.catch(err => console.error("Error fetching bookings:", err));
 	}, [axiosSecure, user?.email]);
-
 
 	return (
 		<div className="max-w-7xl mx-auto p-6">

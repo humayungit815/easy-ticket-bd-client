@@ -20,6 +20,9 @@ import AdminAdvertise from "../components/Dashboard/AdminMenu/AdminAdvertise";
 import PrivateRoute from "./PrivateRoute";
 import UpdateTicket from "../components/Dashboard/VendorMenu/UpdateTicket";
 import ErrorPage from "../components/ErrorPage/ErrorPage";
+import Loading from "../components/Loading/Loading";
+import SellerRoute from "./SellerRoute";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
 	{
@@ -63,11 +66,19 @@ const router = createBrowserRouter([
 		children: [
 			{
 				path: "add-tickets",
-				Component: AddTickets,
+				element: (
+					<SellerRoute>
+						<AddTickets></AddTickets>
+					</SellerRoute>
+				),
 			},
 			{
 				path: "my-added-tickets",
-				Component: MyAddedTickets,
+				element: (
+					<SellerRoute>
+						<MyAddedTickets></MyAddedTickets>
+					</SellerRoute>
+				),
 			},
 			{
 				path: "profile",
@@ -75,7 +86,11 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "manage-tickets",
-				Component: ManageTickets,
+				element: (
+					<AdminRoute>
+						<ManageTickets></ManageTickets>
+					</AdminRoute>
+				),
 			},
 			{
 				path: "my-booked-tickets",
@@ -83,7 +98,11 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "requested-bookings",
-				Component: RequestedBookings,
+				element: (
+					<SellerRoute>
+						<RequestedBookings></RequestedBookings>
+					</SellerRoute>
+				),
 			},
 			{
 				path: "payment-success",
@@ -95,15 +114,27 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "vendor-revenue",
-				Component: VendorRevenue,
+				element: (
+					<SellerRoute>
+						<VendorRevenue></VendorRevenue>
+					</SellerRoute>
+				),
 			},
 			{
 				path: "manage-users",
-				Component: AdminManageUsers,
+				element: (
+					<AdminRoute>
+						<AdminManageUsers></AdminManageUsers>
+					</AdminRoute>
+				),
 			},
 			{
 				path: "admin-advertise",
-				Component: AdminAdvertise,
+				element: (
+					<AdminRoute>
+						<AdminAdvertise></AdminAdvertise>
+					</AdminRoute>
+				),
 			},
 			{
 				path: "update-ticket/:id",

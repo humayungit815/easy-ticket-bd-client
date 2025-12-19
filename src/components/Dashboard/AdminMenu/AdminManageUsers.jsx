@@ -43,26 +43,24 @@ const AdminManageUsers = () => {
 		}
 	};
 
-    // make fraud
-    const handleMarkFraud = async id => {
-			try {
-				const res = await axiosSecure.patch(`/users/fraud/${id}`);
-				if (res.data.success) {
-					toast.success("Vendor marked as fraud!");
+	// make fraud
+	const handleMarkFraud = async id => {
+		try {
+			const res = await axiosSecure.patch(`/users/fraud/${id}`);
+			if (res.data.success) {
+				toast.success("Vendor marked as fraud!");
 
-					// Update state so UI updates
-					setUsers(prev =>
-						prev.map(user =>
-							user._id === id ? {...user, isFraud: true} : user
-						)
-					);
-				}
-			} catch (err) {
-				console.error(err);
-				toast.error("Failed to mark vendor as fraud");
+				// Update state so UI updates
+				setUsers(prev =>
+					prev.map(user => (user._id === id ? {...user, isFraud: true} : user))
+				);
 			}
-		};
-    
+		} catch (err) {
+			console.error(err);
+			toast.error("Failed to mark vendor as fraud");
+		}
+	};
+
 	return (
 		<div className="p-4 sm:p-8 bg-gray-50">
 			<h2 className="text-3xl font-bold text-gray-800 mb-6">
