@@ -9,33 +9,8 @@ import {CgProfile} from "react-icons/cg";
 import {Ticket} from "lucide-react";
 
 const Navbar = () => {
-	const {user, logOut, loading} = useAuth();
-	const link = (
-		<>
-			<li className="border-2 rounded-lg border-[#15803d] hover:bg-[#079d49] hover:text-white">
-				<NavLink to="/">
-					{" "}
-					<FaHome /> Home
-				</NavLink>
-			</li>
-			{user && (
-				<li className="border-2 rounded-lg border-[#15803d] hover:bg-[#079d49] hover:text-white mx-4">
-					<NavLink to="/all-tickets">
-						{" "}
-						<IoTicket /> All Tickets
-					</NavLink>
-				</li>
-			)}
-			{user && (
-				<li className="border-2 rounded-lg border-[#15803d] hover:bg-[#079d49] hover:text-white">
-					<NavLink to="/dashboard">
-						{" "}
-						<MdDashboardCustomize /> Dashboard
-					</NavLink>
-				</li>
-			)}
-		</>
-	);
+	const {user, logOut} = useAuth();
+
 
 	const handleLogout = () => {
 		logOut()
@@ -61,9 +36,6 @@ const Navbar = () => {
 		document.addEventListener("mousedown", handleClickOutside);
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
-	if (loading) {
-		return <p>Loading...</p>;
-	}
 	return (
 		<div className="fixed top-0 left-0 w-full z-50">
 			<nav className="navbar bg-white shadow-sm px-20">
@@ -90,7 +62,28 @@ const Navbar = () => {
 							tabIndex="-1"
 							className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
 						>
-							{link}
+							<li className="border-2 rounded-lg border-[#15803d] hover:bg-[#079d49] hover:text-white">
+								<NavLink to="/">
+									{" "}
+									<FaHome /> Home
+								</NavLink>
+							</li>
+							{user && (
+								<li className="border-2 rounded-lg border-[#15803d] hover:bg-[#079d49] hover:text-white mx-4">
+									<NavLink to="/all-tickets">
+										{" "}
+										<IoTicket /> All Tickets
+									</NavLink>
+								</li>
+							)}
+							{user && (
+								<li className="border-2 rounded-lg border-[#15803d] hover:bg-[#079d49] hover:text-white">
+									<NavLink to="/dashboard">
+										{" "}
+										<MdDashboardCustomize /> Dashboard
+									</NavLink>
+								</li>
+							)}
 						</ul>
 					</div>
 					<Link to="/">
@@ -107,7 +100,28 @@ const Navbar = () => {
 				</div>
 				<div className="navbar-center hidden lg:flex">
 					<ul className="menu menu-horizontal px-1 font-medium text-[#079d49]">
-						{link}
+						<li className="border-2 rounded-lg border-[#15803d] hover:bg-[#079d49] hover:text-white">
+							<NavLink to="/">
+								{" "}
+								<FaHome /> Home
+							</NavLink>
+						</li>
+						{user && (
+							<li className="border-2 rounded-lg border-[#15803d] hover:bg-[#079d49] hover:text-white mx-4">
+								<NavLink to="/all-tickets">
+									{" "}
+									<IoTicket /> All Tickets
+								</NavLink>
+							</li>
+						)}
+						{user && (
+							<li className="border-2 rounded-lg border-[#15803d] hover:bg-[#079d49] hover:text-white">
+								<NavLink to="/dashboard">
+									{" "}
+									<MdDashboardCustomize /> Dashboard
+								</NavLink>
+							</li>
+						)}
 					</ul>
 				</div>
 				<div className="navbar-end flex gap-3">

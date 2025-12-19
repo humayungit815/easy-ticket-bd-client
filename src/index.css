@@ -4,3 +4,7 @@
 body {
 	background-color: #eaeced;
 }
+nav a.active {
+	background-color: #079d49;
+	color: white;
+}

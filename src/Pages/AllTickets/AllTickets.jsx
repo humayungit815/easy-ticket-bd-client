@@ -90,7 +90,7 @@ const AllTickets = () => {
 	}
 
 	return (
-		<div className="min-h-screen pb-20">
+		<div className="pt-[69px] pb-20">
 			{/* 1. Header & Search Bar Section */}
 			<div className=" border-b border-gray-100 pt-12 pb-8 px-6">
 				<div className="max-w-7xl mx-auto">
