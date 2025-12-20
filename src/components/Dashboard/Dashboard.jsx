@@ -49,7 +49,7 @@ const Dashboard = () => {
 								Easy<span style={{color: brandGreen}}>Ticket</span>
 							</span>
 						</Link>
-						{/* Close button for mobile */}
+						
 						<button
 							onClick={toggleSidebar}
 							className="lg:hidden p-2 text-gray-400 hover:text-white"
