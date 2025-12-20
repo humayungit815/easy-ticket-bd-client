@@ -42,7 +42,7 @@ const Login = () => {
 
 			console.log("user g", user);
 
-			// save to backend
+		
 			await saveOrUpdateUser({
 				name: user.displayName,
 				email: user.email,
