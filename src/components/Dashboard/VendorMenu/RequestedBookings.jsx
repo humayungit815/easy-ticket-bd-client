@@ -60,7 +60,7 @@ const RequestedBookings = () => {
 				Requested Bookings
 			</h2>
 
-			<div className=" bg-white shadow-lg rounded-xl">
+			<div className=" bg-white shadow-lg rounded-xl overflow-x-scroll">
 				<table className="min-w-full text-left text-sm">
 					<thead className="bg-gray-100 text-gray-700 text-sm uppercase">
 						<tr>
@@ -86,7 +86,10 @@ const RequestedBookings = () => {
 						)}
 
 						{requests.map((request, index) => (
-							<tr key={request._id} className="border-b font-medium border-b-gray-300 hover:bg-gray-50">
+							<tr
+								key={request._id}
+								className="border-b font-medium border-b-gray-300 hover:bg-gray-50"
+							>
 								<td className="px-6 py-4">{index + 1}</td>
 								<td className="px-6 py-4 font-semibold">{request.userName}</td>
 								<td className="px-6 py-4">{request.ticketTitle}</td>

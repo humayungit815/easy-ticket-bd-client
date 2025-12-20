@@ -19,7 +19,7 @@ const RecentAddedTickets = () => {
 	return (
 		<div className="mt-20 max-w-7xl mx-auto
 		">
-			<div className="mb-10">
+			<div className="mb-10 p-3">
 				<div className="flex items-center gap-2 mb-2">
 					<span
 						className="w-8 h-1 rounded-full"
@@ -37,7 +37,7 @@ const RecentAddedTickets = () => {
 				{tickets.map(ticket => (
 					<div
 						key={ticket.id}
-						className="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100"
+						className="group w-[90%] mx-auto md:w-full bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100"
 					>
 						{/* Image Section */}
 						<div className="relative h-48 overflow-hidden">

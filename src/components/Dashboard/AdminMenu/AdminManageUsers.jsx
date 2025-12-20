@@ -68,7 +68,7 @@ const AdminManageUsers = () => {
 			</h2>
 
 			{/* Table Container */}
-			<div className="shadow-lg overflow-hidden border-b border-gray-200 sm:rounded-lg">
+			<div className="shadow-lg overflow-x-scroll border-b border-gray-200 sm:rounded-lg">
 				<table className="min-w-full divide-y divide-gray-200">
 					{/* Table Header */}
 					<thead className="bg-gray-100">

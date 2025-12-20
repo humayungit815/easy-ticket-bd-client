@@ -37,10 +37,14 @@ const Navbar = () => {
 	}, []);
 	return (
 		<div className="fixed top-0 left-0 w-full z-50">
-			<nav className="navbar bg-white shadow-sm px-20">
+			<nav className="navbar bg-white shadow-sm md:px-20">
 				<div className="navbar-start">
 					<div className="dropdown">
-						<div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+						<div
+							tabIndex={0}
+							role="button"
+							className="btn btn-ghost p-0 m-0 lg:hidden"
+						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								className="h-5 w-5"
@@ -59,7 +63,7 @@ const Navbar = () => {
 						</div>
 						<ul
 							tabIndex="-1"
-							className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+							className="menu font-medium menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
 						>
 							<li className="border-2 rounded-lg border-[#15803d] hover:bg-[#079d49] hover:text-white">
 								<NavLink to="/">
@@ -68,7 +72,7 @@ const Navbar = () => {
 								</NavLink>
 							</li>
 							{user && (
-								<li className="border-2 rounded-lg border-[#15803d] hover:bg-[#079d49] hover:text-white mx-4">
+								<li className="my-2 border-2 rounded-lg border-[#15803d] hover:bg-[#079d49] hover:text-white md:mx-4 mx-0">
 									<NavLink to="/all-tickets">
 										{" "}
 										<IoTicket /> All Tickets
@@ -86,11 +90,11 @@ const Navbar = () => {
 						</ul>
 					</div>
 					<Link to="/">
-						<div className="flex items-center gap-2 cursor-pointer">
-							<div className="p-1.5 rounded-lg bg-[#079d49]">
+						<div className="flex items-center gap-2 cursor-pointer ml-4 md:ml-0">
+							<div className="p-1.5 rounded-lg bg-[#079d49] shrink-0">
 								<Ticket className="text-white" size={24} />
 							</div>
-							<span className="text-2xl font-black tracking-tighter">
+							<span className="text-xl sm:text-2xl font-black tracking-tighter whitespace-nowrap">
 								Easy<span className="text-[#079d49]">-Ticket</span>
 								<span className="text-gray-400 font-light">BD</span>
 							</span>
@@ -173,7 +177,7 @@ const Navbar = () => {
 								</button>
 							</Link>
 							<Link to="/register">
-								<button className="bg-[#079d49] text-white px-4 py-2 rounded-xl font-medium">
+								<button className="hidden md:block bg-[#079d49] text-white px-4 py-2 rounded-xl font-medium">
 									Register
 								</button>
 							</Link>

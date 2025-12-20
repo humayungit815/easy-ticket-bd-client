@@ -239,7 +239,7 @@ const Register = () => {
 
 					{/* Create Account */}
 					<div className="pt-4 text-center">
-						<p className="text-lg text-gray-600">
+						<p className="md:text-lg text-gray-600">
 							Already have an account?{" "}
 							<Link
 								to="/login"

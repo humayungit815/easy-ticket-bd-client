@@ -20,7 +20,7 @@ const AdvertiseTicket = () => {
 		<div>
 			<section>
 				<div className="max-w-7xl mx-auto">
-					<div className="mb-10">
+					<div className="mb-10 p-3 md:p-0">
 						<h2 className="text-4xl font-black text-slate-900 tracking-tighter">
 							Featured <span style={{color: brandGreen}}>Trips</span>
 						</h2>
@@ -30,10 +30,10 @@ const AdvertiseTicket = () => {
 					</div>
 
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-						{tickets.map(ticket => (
+						{tickets?.map(ticket => (
 							<div
 								key={ticket.id}
-								className="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100"
+								className="w-[90%] mx-auto md:w-full group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100"
 							>
 								{/* Image Section */}
 								<div className="relative h-48 overflow-hidden">

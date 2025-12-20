@@ -58,7 +58,7 @@ const Login = () => {
 		}
 	};
 	return (
-		<div className="flex flex-col md:flex-row w-full h-screen bg-white pt-[69px] overflow-hidden">
+		<div className="flex flex-col md:flex-row w-full bg-white pt-[70px] md:pt-[69px] overflow-hidden">
 			{/* LEFT SIDE IMAGE SLIDER */}
 			<div className="hidden md:block md:w-1/2 h-full overflow-hidden rounded-r-3xl">
 				<Swiper
@@ -160,7 +160,7 @@ const Login = () => {
 							<div className="flex-1 h-px bg-gray-300"></div>
 						</div>
 						<button
-						type="button"
+							type="button"
 							onClick={handleGoogleSignIn}
 							className="w-full flex items-center justify-center gap-3 
 														  py-2.5 rounded-xl 
@@ -179,7 +179,7 @@ const Login = () => {
 
 					{/* Create Account */}
 					<div className="pt-4 text-center">
-						<p className="text-lg text-gray-600">
+						<p className="md:text-lg text-gray-600">
 							Don’t have an account?{" "}
 							<Link
 								to="/register"
