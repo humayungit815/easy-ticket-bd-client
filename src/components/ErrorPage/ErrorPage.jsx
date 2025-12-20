@@ -59,7 +59,7 @@ const ErrorPage = () => {
 					</Link>
 				</div>
 
-				{/* Footer Decor */}
+				
 				<p className="text-[10px] font-black text-gray-400 uppercase tracking-[3px] pt-8">
 					EasyTicket • Error System v2.0
 				</p>
