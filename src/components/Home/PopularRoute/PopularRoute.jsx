@@ -38,7 +38,7 @@ const PopularRoute = () => {
 	return (
 		<section className="py-24">
 			<div className="max-w-7xl mx-auto px-6">
-				{/* Header */}
+				
 				<div className="text-center max-w-2xl mx-auto mb-16">
 					<h2 className="text-[10px] font-black uppercase tracking-[4px] text-gray-400 mb-4">
 						Top Destinations
