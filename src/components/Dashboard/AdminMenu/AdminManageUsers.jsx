@@ -134,7 +134,7 @@ const AdminManageUsers = () => {
 									</span>
 								</td>
 
-								{/* Actions Column with Static Buttons (No onClick handlers) */}
+								
 								<td className="px-6 py-4 whitespace-nowrap text-sm font-medium flex gap-2">
 									{/* Make Admin Button */}
 									<button
