@@ -6,7 +6,7 @@ const AdminManageUsers = () => {
 	const [users, setUsers] = useState([]);
 	const axiosSecure = useAxiosSecure();
 
-	// fetch all users
+	
 	useEffect(() => {
 		axiosSecure.get("/users").then(res => setUsers(res.data));
 	}, [axiosSecure]);
