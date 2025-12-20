@@ -29,7 +29,7 @@ const Profile = () => {
 			<div className="bg-white rounded-[3rem] shadow-sm border border-gray-100 overflow-hidden">
 				{/* 1. Header/Cover Area */}
 				<div className="h-48 w-full relative bg-slate-900 overflow-hidden">
-					{/* Decorative Background Pattern */}
+					
 					<div
 						className="absolute inset-0 opacity-20"
 						style={{
