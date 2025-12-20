@@ -15,7 +15,7 @@ import {
 const ManageTickets = () => {
 	const [tickets, setTickets] = useState([]);
 	const axiosSecure = useAxiosSecure();
-	// const brandGreen = "#079d49";
+	
 
 	useEffect(() => {
 		axiosSecure
