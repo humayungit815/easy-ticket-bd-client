@@ -119,7 +119,7 @@ const AdminManageUsers = () => {
 									<div className="text-sm text-gray-500">{user.email}</div>
 								</td>
 
-								{/* Role Column with Badge Styling (Static colors based on current role) */}
+								
 								<td className="px-6 py-4 whitespace-nowrap">
 									<span
 										className={`px-3 inline-flex text-xs leading-5 font-semibold rounded-full ${
