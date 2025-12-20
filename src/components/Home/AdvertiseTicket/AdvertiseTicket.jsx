@@ -102,7 +102,7 @@ const AdvertiseTicket = () => {
 										))}
 									</div>
 
-									{/* CTA Button */}
+									
 									<button
 										onClick={() => handleSeeDetails(ticket._id)}
 										className="cursor-pointer w-full py-3 rounded-xl font-bold text-white transition-all active:scale-95 shadow-lg shadow-green-900/10"
