@@ -1,16 +1,112 @@
-# React + Vite
+🎟️ Easy Ticket BD
+📌 Project Purpose
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Easy Ticket BD is a full-stack online ticket booking platform that allows users to easily search, filter, and book transport tickets such as Bus, Train, Launch, and Plane.
+The system is built with role-based access control (User, Vendor, Admin) to ensure secure and well-organized platform management.
 
-Currently, two official plugins are available:
+🌐 Live Website
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🔗 Live URL:
+https://easy-ticket-bd.web.app
 
-## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+🚀 Key Features
+👤 User Features
 
-## Expanding the ESLint configuration
+🔍 Search tickets by From → To location
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+🚍 Filter tickets by Transport Type
+
+💰 Sort tickets by Price (Low → High / High → Low)
+
+📄 View detailed ticket information
+
+🎟️ Secure ticket booking system
+
+🌗 Dark / Light mode toggle
+
+🧑‍💼 Vendor Features
+
+➕ Add new tickets
+
+✏️ Update ticket details anytime
+
+❌ Delete tickets
+
+📦 View “My Added Tickets”
+
+🚫 Update/Delete disabled if ticket is Rejected
+
+🛡️ Admin Features
+
+👥 Manage all users (Make Admin / Make Vendor)
+
+⚠️ Mark vendor as Fraud
+
+Vendor’s tickets become hidden
+
+Vendor can no longer add new tickets
+
+✅ Approve or Reject vendor tickets
+
+📢 Advertise up to 6 tickets on the homepage
+
+📊 Dashboard with revenue and ticket statistics
+
+🏠 Homepage Sections
+
+⭐ Advertised Tickets Slider
+
+🆕 Latest Tickets Section
+
+📍 Popular Routes
+
+💡 Why Choose Us?
+
+🧰 Technologies Used
+Frontend
+
+⚛️ React
+
+🌐 React Router DOM
+
+🎨 Tailwind CSS
+
+🌗 Dark / Light Theme
+
+📦 Axios
+
+🔔 React Toastify
+
+📊 Chart.js / Recharts
+
+Backend
+
+🟢 Node.js
+
+🚀 Express.js
+
+🍃 MongoDB
+
+🔐 JWT Authentication
+
+Authentication & Hosting
+
+🔥 Firebase Authentication
+
+☁️ Firebase Hosting
+
+🖼️ ImgBB (Image Upload)
+
+📦 NPM Packages Used
+react
+react-router-dom
+axios
+react-toastify
+firebase
+jsonwebtoken
+express
+mongodb
+tailwindcss
+daisyui
+chart.js
