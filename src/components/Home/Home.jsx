@@ -5,6 +5,9 @@ import RecentAddedTickets from "./RecentAddedTickets/RecentAddedTickets";
 import PopularRoute from "./PopularRoute/PopularRoute";
 import WhyChooseUs from "./WhyChooseUs/WhyChooseUs";
 import Slider from "./Slider";
+import About from "../About/About";
+import HowItWorks from "../HowItWorks/HowItWorks";
+import CustomerReviews from "../CustomerReviews/CustomerReviews";
 const Home = () => {
 	return (
 		<div>
@@ -20,6 +23,15 @@ const Home = () => {
 			</div>
 			<div>
 				<WhyChooseUs></WhyChooseUs>
+			</div>
+			<div>
+				<About></About>
+			</div>
+			<div>
+				<HowItWorks></HowItWorks>
+			</div>
+			<div>
+				<CustomerReviews></CustomerReviews>
 			</div>
 		</div>
 	);

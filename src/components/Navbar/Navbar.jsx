@@ -4,7 +4,7 @@ import {FaHome} from "react-icons/fa";
 import {IoLogOut, IoTicket} from "react-icons/io5";
 import useAuth from "../../hooks/useAuth";
 import {toast} from "react-toastify";
-import {MdDashboardCustomize} from "react-icons/md";
+import {MdDashboardCustomize, MdOutlinePhoneForwarded} from "react-icons/md";
 import {CgProfile} from "react-icons/cg";
 import {Ticket} from "lucide-react";
 
@@ -108,6 +108,18 @@ const Navbar = () => {
 								{" "}
 								<FaHome /> Home
 							</NavLink>
+						</li>
+						<li className="border-2 rounded-lg border-[#15803d] hover:bg-[#079d49] hover:text-white mx-5">
+							<a href="#about">
+								{" "}
+								<FaHome /> About
+							</a>
+						</li>
+						<li className="border-2 rounded-lg border-[#15803d] hover:bg-[#079d49] hover:text-white">
+							<a href="#contact">
+								{" "}
+								<MdOutlinePhoneForwarded /> Contact
+							</a>
 						</li>
 						{user && (
 							<li className="border-2 rounded-lg border-[#15803d] hover:bg-[#079d49] hover:text-white mx-4">

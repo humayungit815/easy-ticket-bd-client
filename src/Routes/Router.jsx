@@ -23,6 +23,7 @@ import ErrorPage from "../components/ErrorPage/ErrorPage";
 import Loading from "../components/Loading/Loading";
 import SellerRoute from "./SellerRoute";
 import AdminRoute from "./AdminRoute";
+import Statistics from './../components/Dashboard/Statistics';
 
 const router = createBrowserRouter([
 	{
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
 			</PrivateRoute>
 		),
 		children: [
+			{
+				index: true,
+				element: <Statistics></Statistics>
+			},
 			{
 				path: "add-tickets",
 				element: (

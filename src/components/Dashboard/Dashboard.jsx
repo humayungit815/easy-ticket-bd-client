@@ -7,6 +7,7 @@ import UserMenu from "./UserMenu/UserMenu";
 import useAuth from "../../hooks/useAuth";
 import {LayoutDashboard, LogOut, Bell, Menu, X} from "lucide-react";
 import Loading from "../Loading/Loading";
+import Statistics from "./Statistics";
 
 const Dashboard = () => {
 	const [role, isRoleLoading] = useRole();

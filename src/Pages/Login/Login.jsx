@@ -20,43 +20,47 @@ const Login = () => {
 	const {
 		register,
 		handleSubmit,
+		setValue, // ইনপুট ফিল্ড অটো-ফিল করার জন্য
 		formState: {errors},
 	} = useForm();
 
 	const handleLogin = data => {
 		signIn(data.email, data.password)
 			.then(result => {
-				console.log(result);
 				toast.success("Login Successfully!");
 				navigate("/");
 			})
 			.catch(err => {
-				console.log(err.message);
 				toast.error("Invalid email or password");
 			});
 	};
+
+	// ডেমো লগইন ফাংশন
+	const handleDemoLogin = (email, password) => {
+		setValue("email", email);
+		setValue("password", password);
+
+		// অটো ফিল হওয়ার পর সরাসরি লগইন কল হবে
+		handleLogin({email, password});
+	};
+
 	const handleGoogleSignIn = async () => {
 		try {
 			const result = await signInWithGoogle();
 			const user = result.user;
-
-			console.log("user g", user);
-
-		
 			await saveOrUpdateUser({
 				name: user.displayName,
 				email: user.email,
 				photo: user.photoURL,
 				isFraud: false,
 			});
-
 			toast.success("Registration Successfully!");
 			navigate("/");
 		} catch (error) {
-			console.log(error);
 			toast.error("Google Sign In Failed!");
 		}
 	};
+
 	return (
 		<div className="flex flex-col md:flex-row w-full bg-white pt-[70px] md:pt-[69px] overflow-hidden">
 			{/* LEFT SIDE IMAGE SLIDER */}
@@ -91,53 +95,73 @@ const Login = () => {
 						<p className="text-gray-600">
 							Login with your{" "}
 							<span className="font-semibold text-green-700">EasyTicket</span>{" "}
-							account and enjoy a seamless journey across all services.
+							account and enjoy a seamless journey.
 						</p>
 					</header>
 
+					{/* Quick Demo Access Buttons */}
+					<div className="space-y-3">
+						<div className="relative flex items-center">
+							<div className="flex-grow border-t border-gray-300"></div>
+							<span className="flex-shrink mx-4 text-gray-400 text-xs font-bold uppercase tracking-wider">
+								Demo Access
+							</span>
+							<div className="flex-grow border-t border-gray-300"></div>
+						</div>
+						<div className="grid grid-cols-2 gap-3">
+							<button
+								onClick={() =>
+									handleDemoLogin("admin@gmail.com", "admin@gmail.com")
+								}
+								className="py-2 px-4 border-2 border-dashed border-green-200 rounded-xl text-sm font-bold text-green-700 hover:bg-green-50 hover:border-[#079d49] transition-all"
+							>
+								Admin Demo
+							</button>
+							<button
+								onClick={() =>
+									handleDemoLogin("user@gmail.com", "User@gmail.com")
+								}
+								className="py-2 px-4 border-2 border-dashed border-gray-200 rounded-xl text-sm font-bold text-gray-600 hover:bg-gray-50 hover:border-gray-400 transition-all"
+							>
+								User Demo
+							</button>
+						</div>
+					</div>
+
 					{/* Form */}
-					<form onSubmit={handleSubmit(handleLogin)} className="space-y-6">
+					<form onSubmit={handleSubmit(handleLogin)} className="space-y-5">
 						{/* email */}
 						<div>
-							<label
-								htmlFor="mobile"
-								className="block text-sm font-medium text-gray-700"
-							>
+							<label className="block text-sm font-medium text-gray-700">
 								Email <span className="text-red-500">*</span>
 							</label>
 							<input
 								type="email"
-								id="mobile"
 								placeholder="Enter email"
 								className="w-full px-4 py-3 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
 								{...register("email", {required: true})}
 							/>
-							{errors.email?.type === "required" && (
-								<p className="text-red-500">Email is Required</p>
+							{errors.email && (
+								<p className="text-red-500 text-sm">Email is Required</p>
 							)}
 						</div>
 
 						{/* Password */}
-						<div className="relative">
-							<label
-								htmlFor="password"
-								className="block text-sm font-medium text-gray-700"
-							>
+						<div>
+							<label className="block text-sm font-medium text-gray-700">
 								Password <span className="text-red-500">*</span>
 							</label>
 							<input
 								type="password"
-								id="password"
 								placeholder="••••••••"
-								className="w-full pr-10 px-4 py-3 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+								className="w-full px-4 py-3 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
 								{...register("password", {required: true})}
 							/>
-							{errors.email?.type === "required" && (
-								<p className="text-red-500">Password is Required</p>
+							{errors.password && (
+								<p className="text-red-500 text-sm">Password is Required</p>
 							)}
 						</div>
 
-						{/* Forgot */}
 						<div className="flex justify-end">
 							<a
 								href="#"
@@ -147,28 +171,23 @@ const Login = () => {
 							</a>
 						</div>
 
-						{/* Login Button */}
 						<button
 							type="submit"
-							className="w-full py-3 text-lg font-medium text-white rounded-md transition duration-150 ease-in-out shadow-sm bg-[#079d49]"
+							className="w-full py-3 text-lg font-medium text-white rounded-md shadow-sm bg-[#079d49] hover:bg-[#068a40] transition duration-150"
 						>
 							Log In
 						</button>
+
 						<div className="flex items-center gap-3">
 							<div className="flex-1 h-px bg-gray-300"></div>
 							<span className="text-gray-500 text-sm font-medium">OR</span>
 							<div className="flex-1 h-px bg-gray-300"></div>
 						</div>
+
 						<button
 							type="button"
 							onClick={handleGoogleSignIn}
-							className="w-full flex items-center justify-center gap-3 
-														  py-2.5 rounded-xl 
-														   border border-gray-300 
-														   bg-white 
-																 hover:bg-[#f4fdf8] 
-																	   transition shadow-sm
-																				"
+							className="w-full flex items-center justify-center gap-3 py-2.5 rounded-xl border border-gray-300 bg-white hover:bg-[#f4fdf8] transition shadow-sm"
 						>
 							<FcGoogle className="text-2xl" />
 							<span className="text-gray-800 font-medium">
@@ -178,12 +197,12 @@ const Login = () => {
 					</form>
 
 					{/* Create Account */}
-					<div className="pt-4 text-center">
+					<div className="pt-2 text-center">
 						<p className="md:text-lg text-gray-600">
 							Don’t have an account?{" "}
 							<Link
 								to="/register"
-								className="font-bold text-green-700 hover:text-green-800 hover:underline"
+								className="font-bold text-green-700 hover:underline"
 							>
 								Create Account
 							</Link>
